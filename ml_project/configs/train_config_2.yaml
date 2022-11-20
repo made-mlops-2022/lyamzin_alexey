@@ -1,0 +1,38 @@
+_target_: src.conf.train_config.TrainConfig
+
+split_params:
+  _target_: src.conf.train_config.SplitConfig
+
+features_params:
+  _target_: src.conf.train_config.FeaturesConfig
+  data_path: "data/raw/heart_cleveland_upload.csv"
+  target_column: "condition"
+  cat_feats:
+    - "restecg"
+    - "exang"
+    - "slope"
+    - "ca"
+    - "thal"
+    - "sex"
+    - "cp"
+    - "fbs"
+  cont_feats:
+    - "chol"
+    - "thalach"
+    - "oldpeak"
+    - "age"
+    - "trestbps"
+
+model_params:
+  _target_: src.conf.train_config.ModelConfig
+  object_path: "models/classifier.dill"
+  report_path: "reports/metrics.json"
+  model_type: "DecisionTree"
+
+prcessing_params:
+  _target_: src.conf.train_config.ProcessingConfig
+  cat_na_strategy: "most_frequent"
+  cont_na_strategy: "median"
+  one_hot_encoding: True
+  standart_scaling: True
+  object_path: "models/transformer.dill"
