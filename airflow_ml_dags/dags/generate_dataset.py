@@ -1,14 +1,15 @@
 import os
 from datetime import timedelta
 
-from airflow import DAG
 from airflow.providers.docker.operators.docker import DockerOperator
 from airflow.utils.dates import days_ago
 from docker.types import Mount
 
+from airflow import DAG
+
 default_args = {
     "owner": "airflow",
-    "email": ["airflow@example.com"],
+    "email": ["eglaforsteam@gmail.com"],
     "retries": 1,
     "retry_delay": timedelta(minutes=1),
 }
