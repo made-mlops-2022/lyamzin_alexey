@@ -1,7 +1,5 @@
 from app import schemas, crud
 
-# import schemas
-# import crud
 import uvicorn
 import dill
 import gdown
@@ -41,18 +39,15 @@ def startup_event():
 
 @app.get("/health")
 def health():
-    return crud.healthcheck(pipeline)
+    if pipeline is None:
+        return status.HTTP_503_SERVICE_UNAVAILABLE
+    return status.HTTP_200_OK
 
 
 @app.post(
     "/predict", response_model=schemas.Predictions, status_code=status.HTTP_200_OK
 )
 def predict(test: schemas.Dataset):
-    # try:
-    #     predictions = crud.get_predictions(test, pipeline)
-    #     return predictions
-    # except HTTPException as err:
-    #     raise err
     return crud.get_predictions(test, pipeline)
 
 
